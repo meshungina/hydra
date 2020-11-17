@@ -29,5 +29,4 @@ mkdir ~/.hydra
 wget https://github.com/LockTrip/Blockchain/releases/download/hydra_testnet_v0.1.0/hydra.conf -P ~/.hydra
 popd > /dev/null
 pushd ~/Hydra/bin/
-sudo apt-get install libdb5.3-dev libdb5.3++-dev
 ./hydra-qt -testnet -minimumchainwork="00000000000000000000000000000000000000000000000000000000138b138b"
