@@ -8,7 +8,7 @@ mkdir ~/dev
 wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz -P ~/dev/
 pushd ~/dev
 tar -xvf db-4.8.30.NC.tar.gz
-sed -i s/__atomic_compare_exchange/__atomic_compare_exchange_db/g ~/dev/db-4.8.30.NC/dbinc/atomic.h
+sed -i s/__atomic_compare_exchange/__atomic_compare_exchange_db/g db-4.8.30.NC/dbinc/atomic.h
 pushd ~/dev/db-4.8.30.NC/build_unix
 mkdir -p build
 BDB_PREFIX=/usr/local
