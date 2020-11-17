@@ -3,7 +3,6 @@ sudo apt update
 sudo apt upgrade
 sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
 sudo apt install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
-sudo apt-get install libdb5.3-dev libdb5.3++-dev
 sudo apt install software-properties-common
 mkdir ~/dev
 wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz -P ~/dev/
@@ -30,4 +29,5 @@ mkdir ~/.hydra
 wget https://github.com/LockTrip/Blockchain/releases/download/hydra_testnet_v0.1.0/hydra.conf -P ~/.hydra
 popd > /dev/null
 pushd ~/Hydra/bin/
+sudo apt-get install libdb5.3-dev libdb5.3++-dev
 ./hydra-qt -testnet -minimumchainwork="00000000000000000000000000000000000000000000000000000000138b138b"
