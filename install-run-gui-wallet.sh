@@ -1,9 +1,9 @@
 #!/bin/bash
-sudo apt update
+sudo apt update -y
 sudo apt upgrade -y
-sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
-sudo apt install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
-sudo apt install software-properties-common
+sudo apt-get --yes --force-yes install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
+sudo apt --yes --force-yes install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
+sudo apt --yes --force-yes install software-properties-common
 mkdir ~/dev
 wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz -P ~/dev/
 tar -xvf ~/dev/db-4.8.30.NC.tar.gz
@@ -14,13 +14,12 @@ BDB_PREFIX=/usr/local
 ../dist/configure --enable-cxx --prefix=$BDB_PREFIX
 make
 sudo make install
-sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev
-sudo apt-get install software-properties-common
-sudo add-apt-repository ppa:bitcoin/bitcoin
-sudo apt-get update
-sudo apt upgrade
-sudo apt-get install libdb4.8-dev libdb4.8++-dev
-sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
+sudo apt-get --yes --force-yes install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev
+sudo apt-get --yes --force-yes install software-properties-common
+sudo apt-get update -y
+sudo apt upgrade -y
+sudo apt-get --yes --force-yes install libdb4.8-dev libdb4.8++-dev
+sudo apt-get --yes --force-yes install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
 popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
