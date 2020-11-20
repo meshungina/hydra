@@ -1,4 +1,6 @@
 #!/bin/bash
+~/Hydra/bin/./hydra-cli -testnet stop
+~/Hydra/bin/./hydra-cli stop
 sudo apt -y install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
 sudo apt -y install software-properties-common
 sudo add-apt-repository ppa:bitcoin/bitcoin -y
