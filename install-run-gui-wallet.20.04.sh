@@ -23,13 +23,13 @@ popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
 wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5/hydra-0.18.5-ubuntu20.04-x86_64-gnu.zip
-unzip hydra-0.18.5-ubuntu20.04-x86_64-gnu.zip
+unzip -o hydra-0.18.5-ubuntu20.04-x86_64-gnu.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
 echo -e "starting node in daemon mode"
-./hydrad -daemon -testnet
+./hydrad -daemon -testnet -rescan -reindex
 sleep 10
 ./hydra-cli -version
 ./hydra-cli -testnet getinfo

@@ -17,7 +17,7 @@ cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
 echo -e "starting node in daemon mode"
-./hydrad -daemon -testnet
+./hydrad -daemon -testnet -rescan -reindex
 sleep 5
 ./hydra-cli -version
 ./hydra-cli -testnet getinfo
