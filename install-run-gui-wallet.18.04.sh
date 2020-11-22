@@ -13,11 +13,11 @@ pushd ~/Hydra
 wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5/hydra-0.18.5-ubuntu18.04-x86_64-gnu.zip
 unzip hydra-0.1.0-ubuntu18.04-x86_64-gnu.zip
 mkdir ~/.hydra
-wget -N https://github.com/LockTrip/Blockchain/releases/download/hydra_testnet_v0.1.0/hydra.conf -P ~/.hydra
+cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
 ./hydrad -daemon -testnet
-sleep 5
+sleep 10
 ./hydra-cli -version
 ./hydra-cli -testnet getinfo
 echo -e ""
