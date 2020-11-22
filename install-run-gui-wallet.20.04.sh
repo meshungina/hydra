@@ -34,7 +34,7 @@ sleep 10
 ./hydra-cli -version
 ./hydra-cli -testnet getinfo
 echo -e ""
-echo -e "Installation complete. HYDRA daemon started. Call the daemon with: \e[0;33m~/Hydra/bin/./hydra-cli -testnet getinfo\e[0m"
+echo -e "Installation complete. HYDRA daemon started in TESTNET. Call the daemon with: \e[0;33m~/Hydra/bin/./hydra-cli -testnet getinfo\e[0m"
 echo -e "You can stop the daemon with \e[0;33m~/Hydra/bin/./hydra-cli -testnet stop\e[0m and use the GUI instead with \e[0;33m~/Hydra/bin/./hydra-qt -testnet\e[0m"
 echo -e "Find more information at \e[0;33mhttps://hydrachain.org\e[0m"
 echo -e ""
