@@ -1,5 +1,6 @@
 #!/bin/bash
 #sudo apt-get autoremove --purge libdb-dev
+echo -e "stopping any running node"
 ~/Hydra/bin/./hydra-cli -testnet stop
 ~/Hydra/bin/./hydra-cli stop
 sudo apt update -y
@@ -9,12 +10,13 @@ sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools
 popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
-wget -N https://github.com/LockTrip/Blockchain/releases/download/hydra_testnet_v0.1.0/hydra-0.1.0-aarch64-linux-gnu.zip
-unzip hydra-0.1.0-aarch64-linux-gnu.zip
+wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5/hydra-0.18.5-aarch64-linux-gnu.zip
+unzip -o hydra-0.18.5-aarch64-linux-gnu.zip
 mkdir ~/.hydra
-wget -N https://github.com/LockTrip/Blockchain/releases/download/hydra_testnet_v0.1.0/hydra.conf -P ~/.hydra
+cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
+echo -e "starting node in daemon mode"
 ./hydrad -daemon -testnet
 sleep 5
 ./hydra-cli -version
