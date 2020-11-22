@@ -12,7 +12,7 @@ sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools
 mkdir ~/Hydra
 pushd ~/Hydra
 wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5/hydra-0.18.5-ubuntu18.04-x86_64-gnu.zip
-unzip hydra-0.1.0-ubuntu18.04-x86_64-gnu.zip
+unzip hydra-0.18.5-ubuntu18.04-x86_64-gnu.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
