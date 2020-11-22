@@ -1,4 +1,5 @@
 #!/bin/bash
+echo -e "stopping any running node"
 ~/Hydra/bin/./hydra-cli -testnet stop
 ~/Hydra/bin/./hydra-cli stop
 sudo apt -y install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
@@ -16,6 +17,7 @@ mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
+echo -e "starting node in daemon mode"
 ./hydrad -daemon -testnet
 sleep 10
 ./hydra-cli -version
