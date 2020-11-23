@@ -5,7 +5,7 @@ echo -e "stopping any running node"
 sudo apt-get -y autoremove --purge libdb-dev
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt -y install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
+sudo apt -y install unzip build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
 sudo apt -y install software-properties-common
 mkdir ~/dev
 wget -N http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz -P ~/dev/
