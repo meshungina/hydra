@@ -23,7 +23,7 @@ popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
 wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.1/hydra-0.18.5.1-ubuntu20.04-x86_64-gnu.zip
-unzip -o hydra-0.18.5-ubuntu20.04-x86_64-gnu.zip
+unzip -o hydra-0.18.5.1-ubuntu20.04-x86_64-gnu.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
