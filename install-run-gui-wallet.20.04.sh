@@ -32,7 +32,7 @@ echo -e "starting node in daemon mode"
 ./hydrad -daemon -rescan -reindex
 sleep 20
 ./hydra-cli -version
-./hydra-cli -testnet getinfo
+./hydra-cli getinfo
 echo -e ""
 echo -e "Installation complete. HYDRA daemon started in MAIN NET. Call the daemon with: \e[0;33m~/Hydra/bin/./hydra-cli getinfo\e[0m"
 echo -e "You can stop the daemon with \e[0;33m~/Hydra/bin/./hydra-cli stop\e[0m and use the GUI instead with \e[0;33m~/Hydra/bin/./hydra-qt \e[0m"
