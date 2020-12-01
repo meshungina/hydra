@@ -11,19 +11,19 @@ sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
 sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
 mkdir ~/Hydra
 pushd ~/Hydra
-wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5/hydra-0.18.5-ubuntu18.04-x86_64-gnu.zip
-unzip -o hydra-0.18.5-ubuntu18.04-x86_64-gnu.zip
+wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.1/hydra-0.18.5.1-ubuntu18.04-x86_64-gnu.zip
+unzip -o hydra-0.18.5.1-ubuntu18.04-x86_64-gnu.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
-echo -e "starting node in daemon mode"
-./hydrad -daemon -testnet -rescan -reindex
-sleep 10
+echo -e "starting node in daemon mode..."
+./hydrad -daemon -rescan -reindex
+sleep 20
 ./hydra-cli -version
-./hydra-cli -testnet getinfo
+./hydra-cli getinfo
 echo -e ""
-echo -e "Installation complete. HYDRA daemon started in TESTNET. Call the daemon with: \e[0;33m~/Hydra/bin/./hydra-cli -testnet getinfo\e[0m"
-echo -e "You can stop the daemon with \e[0;33m~/Hydra/bin/./hydra-cli -testnet stop\e[0m and use the GUI instead with \e[0;33m~/Hydra/bin/./hydra-qt -testnet\e[0m"
+echo -e "Installation complete. HYDRA daemon started in MAIN NET. Call the daemon with: \e[0;33m~/Hydra/bin/./hydra-cli getinfo\e[0m"
+echo -e "You can stop the daemon with \e[0;33m~/Hydra/bin/./hydra-cli stop\e[0m and use the GUI instead with \e[0;33m~/Hydra/bin/./hydra-qt\e[0m"
 echo -e "Find more information at \e[0;33mhttps://hydrachain.org\e[0m"
 echo -e ""
