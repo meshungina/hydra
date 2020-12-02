@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "stopping any running node"
+echo -e "stopping any running node..."
 ~/Hydra/bin/./hydra-cli -testnet stop
 ~/Hydra/bin/./hydra-cli stop
 sudo apt -y install unzip build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
@@ -9,19 +9,21 @@ sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools
 popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
-wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5/hydra-0.18.5-arm-linux-gnueabihf.zip
-unzip -o hydra-0.18.5-arm-linux-gnueabihf.zip
+wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.1/hydra-0.18.5.1-arm-linux-gnueabihf.zip
+unzip -o hydra-0.18.5.1-arm-linux-gnueabihf.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
-echo -e "starting node in daemon mode"
-./hydrad -daemon -testnet -rescan -reindex
-sleep 5
+echo -e "starting node in daemon mode.."
+./hydrad -daemon -rescan -reindex
+sleep 15
 ./hydra-cli -version
-./hydra-cli -testnet getinfo
+sleep 10
+./hydra-cli getinfo
 echo -e ""
-echo -e "Installation complete. HYDRA daemon started in TESTNET. Call the daemon with: \e[0;33m~/Hydra/bin/./hydra-cli -testnet getinfo\e[0m"
-echo -e "You can stop the daemon with \e[0;33m~/Hydra/bin/./hydra-cli -testnet stop\e[0m and use the GUI instead with \e[0;33m~/Hydra/bin/./hydra-qt -testnet\e[0m"
+echo -e "Installation complete. HYDRA daemon started in MAINNET. Your wallet is stored by default in ~/.hydra/"
+echo -e "You can call the daemon with: \e[0;33m~/Hydra/bin/./hydra-cli getinfo\e[0m"
+echo -e "You can stop the daemon with \e[0;33m~/Hydra/bin/./hydra-cli stop\e[0m and use the GUI instead with \e[0;33m~/Hydra/bin/./hydra-qt\e[0m"
 echo -e "Find more information at \e[0;33mhttps://hydrachain.org\e[0m"
 echo -e ""
