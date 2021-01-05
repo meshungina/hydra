@@ -22,13 +22,13 @@ sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools
 popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
-wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.1/hydra-0.18.5.1-ubuntu20.04-x86_64-gnu.zip
-unzip -o hydra-0.18.5.1-ubuntu20.04-x86_64-gnu.zip
+wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.2/hydra-0.18.5.2-ubuntu20.04-x86_64-gnu.zip
+unzip -o hydra-0.18.5.2-ubuntu20.04-x86_64-gnu.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
 pushd ~/Hydra/bin/
-echo -e "starting node in daemon mode"
+echo -e "starting node in daemon mode..."
 ./hydrad -daemon -rescan -reindex
 sleep 20
 ./hydra-cli -version
