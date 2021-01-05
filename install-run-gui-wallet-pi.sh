@@ -3,8 +3,8 @@ echo -e "stopping any running node..."
 ~/Hydra/bin/./hydra-cli -testnet stop
 ~/Hydra/bin/./hydra-cli stop
 sudo apt -y install unzip build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
-sudo apt-get install software-properties-common
-sudo apt-get update
+sudo apt-get -y install software-properties-common
+sudo apt-get -y update
 sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler qrencode
 popd > /dev/null
 mkdir ~/Hydra
