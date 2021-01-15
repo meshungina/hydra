@@ -9,8 +9,8 @@ sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools
 popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
-wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.1/hydra-0.18.5.1-arm-linux-gnueabihf.zip
-unzip -o hydra-0.18.5.1-arm-linux-gnueabihf.zip
+wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.3/hydra-0.18.5.3-arm-linux-gnueabihf.zip
+unzip -o hydra-0.18.5.3-arm-linux-gnueabihf.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
