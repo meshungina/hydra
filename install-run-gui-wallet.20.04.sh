@@ -22,8 +22,8 @@ sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools
 popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
-wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.3/hydra-0.18.5.3-ubuntu20.04-x86_64-gnu.zip
-unzip -o hydra-0.18.5.3-ubuntu20.04-x86_64-gnu.zip
+wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.4/hydra-0.18.5.4-ubuntu20.04-x86_64-gnu.zip
+unzip -o hydra-0.18.5.4-ubuntu20.04-x86_64-gnu.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
