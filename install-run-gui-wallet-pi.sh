@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "stopping any running node..."
+echo -e "stopping any running node. If you are running the QT GUI version please exit manually before updating. If there is a dpkg error it may mean you need to wait for your system to finish updating and then run the script again. "
 ~/Hydra/bin/./hydra-cli -testnet stop
 ~/Hydra/bin/./hydra-cli stop
 sudo apt -y install unzip build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev libgmp3-dev libzmq3-dev
@@ -9,8 +9,8 @@ sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools
 popd > /dev/null
 mkdir ~/Hydra
 pushd ~/Hydra
-wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.4/hydra-0.18.5.4-arm-linux-gnueabihf.zip
-unzip -o hydra-0.18.5.4-arm-linux-gnueabihf.zip
+wget -N https://github.com/Hydra-Chain/node/releases/download/hydra_v0.18.5.5/hydra-0.18.5.5-arm-linux-gnueabihf.zip
+unzip -o hydra-0.18.5.5-arm-linux-gnueabihf.zip
 mkdir ~/.hydra
 cp ~/Hydra/hydra.conf ~/.hydra/
 popd > /dev/null
