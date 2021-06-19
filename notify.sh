@@ -39,7 +39,7 @@ fetchAllData () {
 	locs=$(echo $responseEX | jq .blocksMined)
 	balanceHR=$(echo $responseEX | jq .balance | bc)
 	balanceHYD=$(($balanceHR/100000000))
-	balanceLR=$(echo $responseEX | jq .qrc20Balances[2].balance | bc)
+	balanceLR=$(echo $responseEX | jq .qrc20Balances[0].balance | bc)
 	balanceLOC=$(($balanceLR/100000000))
 	usdHYDRA="$(echo "$usdH*$balanceHYD" | bc)"
 	usdLoc="$(echo "$usdL*$balanceLOC" | bc)"
