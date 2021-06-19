@@ -1,31 +1,37 @@
 #!/bin/bash
-#Install pushbullet and get an access token. Edit required areas: ACCESS_TOKEN,node,logFile location. Customize watchpatterns to your needs.
-#Set script as executable (chmod +x ./notify.sh) and install as a service: (change file name and service name) https://tecadmin.net/run-shell-script-as-systemd-service/
-#may need to install bc and jq 'apt-get install jq' and 'apt-get install bc'
+#Install pushbullet and get an access token. Edit required areas: ACCESS_TOKEN,node,logFile location. Customize watchpatterns as needed. #qrc20Balances[] might need adjustment depending on how many tokens the address owns
+#Set script as executable (chmod +x ./notify.sh) and install as a service: (change file name and service name) Here's a good guide: https://tecadmin.net/run-shell-script-as-systemd-service/
+#may need to install bc and jq -> 'apt-get install jq' and 'apt-get install bc' execute script with 'bash notify.sh'
 urlEX=https://explorer.hydrachain.org/api/address/
 urlCG="https://api.coingecko.com/api/"
 pushApi="https://api.pushbullet.com/v2/pushes"
 usdLOC="v3/simple/price?ids=lockchain&vs_currencies=usd"
-usdHYDRA="v3/simple/price?ids=hydra&vs_currencies=usd"
-node="HYDRAADDRESS"
-watchPattern1="CreateNewBlock"
-watchPattern2="Terminating"
-watchPattern3="ProcessNetBlock"
+usdHYD="v3/simple/price?ids=hydra&vs_currencies=usd"
+node="WALLETADDRESS"
+watchPattern1="  update"
+watchPattern2="CreateNewBlock"
+watchPattern3="Shutdown"
+watchPattern4="ProcessNetBlock"
 logFile=~/.hydra/debug.log
-ACCESS_TOKEN=YOURTOKEN
+ACCESS_TOKEN=PUSHBULLETTOKEN
 logLine=""
+responseEX=""
+responseCGH=""
+responseCGL=""
+usdH=""
+usdL=""
+blocks=""
+locs=""
+balanceHR=""
+balanceHYD=""
+balanceLR=""
+balanceLOC=""
+usdHYDRA=""
+usdLoc=""
 
-while read -r logLine ; do
-
-        #match Mined Block
-    if [[ "$logLine" == *"$watchPattern1"* ]]; then
-
-    #message to console
-    #echo "Mined block" $logLine | wall -n
-	
-	#get info
+fetchAllData () {
 	responseEX=$(curl -s --request GET "$urlEX$node")
-	responseCGH=$(curl -s --request GET "$urlCG$usdHYDRA")
+	responseCGH=$(curl -s --request GET "$urlCG$usdHYD")
 	responseCGL=$(curl -s --request GET "$urlCG$usdLOC")
 	usdH=$(echo $responseCGH | jq .hydra.usd | bc)
 	usdL=$(echo $responseCGL | jq .lockchain.usd | bc)
@@ -35,32 +41,65 @@ while read -r logLine ; do
 	balanceHYD=$(($balanceHR/100000000))
 	balanceLR=$(echo $responseEX | jq .qrc20Balances[2].balance | bc)
 	balanceLOC=$(($balanceLR/100000000))
-	echo "loc balance:" $balanceHYD
-	usdHydra="$(echo "$usdH*$balanceHYD" | bc)"
+	usdHYDRA="$(echo "$usdH*$balanceHYD" | bc)"
 	usdLoc="$(echo "$usdL*$balanceLOC" | bc)"
-	
-	    #send info
-	echo "Blocks Mined:"$blocks " node:"$node" Hydra Balance:"$balanceHYD "Value:$"$usdHydra "Loc Balance:"$balanceLOC "Loc Value:$"$usdLoc| tee -a "$HOME/notify.log"
+}
 
 
-	curl -s -u $ACCESS_TOKEN: -X POST $pushApi --header 'Content-Type: application/json' --data-binary '{"type": "note", "title": "'"Block Mined!"'", "body": "'"Blocks Mined:$blocks Node:$node Hydra Balance:$balanceHYD Value:\$$usdHydra Loc Balance:$balanceLOC Loc Value:\$$usdLoc"'"}' >/dev/null 2>&1 
-	
-	#match error pattern
-	elif [[ "$logLine" == *"$watchPattern2"* ]] ; then
+while read -r logLine ; do
+
+	#match addtowallet by "  update" pattern
+	if [[ "$logLine" == *"$watchPattern1"* ]] ; then
       #message to console
-      #echo "error" $logLine | wall -n
-		echo "error" $logLine | tee -a "$HOME/notify.log"
-	curl -s -u $ACCESS_TOKEN: -X POST $pushApi --header 'Content-Type: application/json' --data-binary '{"type": "note", "title": "'"error"'", "body": "'"Check error $logLine"'"}' >/dev/null 2>&1 
-	#match new block(status check)
-	elif [[ "$logLine" == *"$watchPattern3"* ]] ; then
+        #echo "addtowallet" $logLine
+		echo "addtowallet "$node" " $logLine | wall -n
+		echo "addtowallet "$node" " $logLine | tee -a "$HOME/notify.log"
+	#sleeping so explorer can catch up and we can grab correctly updated values
+	sleep 30
+	    #get info from fetchAllData function
 
+    fetchAllData
 	
-        #message to console
+	    #send info to log
+	echo "addtowallet:"$node"-"$blocks"-Hydra Balance:"$balanceHYD-"Value:$"$usdHYDRA "LocBalance:"$balanceLOC "LocValue:$"$usdLoc| tee -a "$HOME/notify.log"
+
+		#send to pushbullet
+	curl -s -u $ACCESS_TOKEN: -X POST $pushApi --header 'Content-Type: application/json' --data-binary '{"type": "note", "title": "'"HYDRA BALANCE CHANGED"'", "body": "'"NODE:$node - BLOCKS:$blocks - New balance:$balanceHYD - Value:\$$usdHYDRA - Loc Balance:$balanceLOC - Loc Value:\$$usdLoc - Log: $logLine "'"}' >/dev/null 2>&1 
+	
+
+        #match Mined Block
+    elif [[ "$logLine" == *"$watchPattern2"* ]]; then
+		
+		#message to console
+     
+	echo "Mined block" $logLine | wall -n
+	#sleeping so explorer can catch up and we can grab correctly updated values
+	sleep 30
+	    #get info from fetchAllData function
+
+    fetchAlldata
+	
+	    #send info to log
+	echo "Blocks Mined for:"$node" :"$blocks" Hydra Balance:"$balanceHYD "Value:$"$usdHYDRA "Loc Balance:"$balanceLOC "Loc Value:$"$usdLoc| tee -a "$HOME/notify.log"
+
+		#send to pushbullet
+	curl -s -u $ACCESS_TOKEN: -X POST $pushApi --header 'Content-Type: application/json' --data-binary '{"type": "note", "title": "'"NEW BLOCK MINED!"'", "body": "'"Total Mined for $node: $blocks - Hydra Balance:$balanceHYD - Value:\$$usdHydra - Loc Balance:$balanceLOC - Loc Value:\$$usdLoc - Log: $logLine "'"}' >/dev/null 2>&1 
+	
+	#match Shutdown pattern
+	elif [[ "$logLine" == *"$watchPattern3"* ]] ; then
+      #message to console
+        #echo "Shutdown" $logLine
+		echo "Shutdown" $logLine | wall -n
+		echo "Shutdown" $logLine | tee -a "$HOME/notify.log"
+	curl -s -u $ACCESS_TOKEN: -X POST $pushApi --header 'Content-Type: application/json' --data-binary '{"type": "note", "title": "'"Shutdown"'", "body": "'"Check Shutdown $logLine"'"}' >/dev/null 2>&1 
+	
+	#match new block(status check)
+	
+	elif [[ "$logLine" == *"$watchPattern4"* ]] ; then
+
+	    #message to console
         #echo "Block" $logLine | wall -n
 		echo "Block" $logLine | tee -a "$HOME/notify.log"
-
-
-
 
     fi
 done< <(exec tail -fn0 "$logFile")
