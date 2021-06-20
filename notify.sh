@@ -83,7 +83,7 @@ while read -r logLine ; do
 	echo "Blocks Mined for:"$node" :"$blocks" Hydra Balance:"$balanceHYD "Value:$"$usdHYDRA "Loc Balance:"$balanceLOC "Loc Value:$"$usdLoc| tee -a "$HOME/notify.log"
 
 		#send to pushbullet
-	curl -s -u $ACCESS_TOKEN: -X POST $pushApi --header 'Content-Type: application/json' --data-binary '{"type": "note", "title": "'"NEW BLOCK MINED!"'", "body": "'"Total Mined for $node: $blocks - Hydra Balance:$balanceHYD - Value:\$$usdHydra - Loc Balance:$balanceLOC - Loc Value:\$$usdLoc - Log: $logLine "'"}' >/dev/null 2>&1 
+	curl -s -u $ACCESS_TOKEN: -X POST $pushApi --header 'Content-Type: application/json' --data-binary '{"type": "note", "title": "'"NEW BLOCK MINED!"'", "body": "'"Total Mined for $node: $blocks - Hydra Balance:$balanceHYD - Value:\$$usdHYDRA - Loc Balance:$balanceLOC - Loc Value:\$$usdLoc - Log: $logLine "'"}' >/dev/null 2>&1 
 	
 	#match Shutdown pattern
 	elif [[ "$logLine" == *"$watchPattern3"* ]] ; then
