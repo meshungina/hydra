@@ -77,7 +77,7 @@ while read -r logLine ; do
 	sleep 30
 	    #get info from fetchAllData function
 
-    fetchAlldata
+    fetchAllData
 	
 	    #send info to log
 	echo "Blocks Mined for:"$node" :"$blocks" Hydra Balance:"$balanceHYD "Value:$"$usdHYDRA "Loc Balance:"$balanceLOC "Loc Value:$"$usdLoc| tee -a "$HOME/notify.log"
