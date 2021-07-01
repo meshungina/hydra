@@ -1,7 +1,9 @@
 #!/bin/bash
-#Install pushbullet and get an access token. Edit required areas: ACCESS_TOKEN,node,logFile location. Customize watchpatterns as needed. #qrc20Balances[] might need adjustment depending on how many tokens the address owns
-#Set script as executable (chmod +x ./notify.sh) and install as a service: (change file name and service name) Here's a good guide: https://tecadmin.net/run-shell-script-as-systemd-service/
-#may need to install bc and jq -> 'apt-get install jq' and 'apt-get install bc' execute script with 'bash notify.sh'
+#Install pushbullet and get an access token. Edit required areas: ACCESS_TOKEN,node,logFile location. Customize watchpatterns as needed.
+#Set script as executable (chmod +x ./notify.sh) and install as a service: (change file name and service name)
+#Here's a good guide: https://tecadmin.net/run-shell-script-as-systemd-service/
+#may need to install bc and jq -> 'apt-get install jq' and 'apt-get install bc' execute script with './notify.sh'
+
 urlEX=https://explorer.hydrachain.org/api/address/
 urlCG="https://api.coingecko.com/api/"
 pushApi="https://api.pushbullet.com/v2/pushes"
@@ -21,7 +23,6 @@ responseCGL=""
 usdH=""
 usdL=""
 blocks=""
-locs=""
 balanceHR=""
 balanceHYD=""
 balanceLR=""
@@ -36,10 +37,9 @@ fetchAllData () {
 	usdH=$(echo $responseCGH | jq .hydra.usd | bc)
 	usdL=$(echo $responseCGL | jq .lockchain.usd | bc)
 	blocks=$(echo $responseEX | jq .blocksMined)
-	locs=$(echo $responseEX | jq .blocksMined)
 	balanceHR=$(echo $responseEX | jq .balance | bc)
 	balanceHYD=$(($balanceHR/100000000))
-	balanceLR=$(echo $responseEX | jq .qrc20Balances[0].balance | bc)
+	balanceLR=$(echo $responseEX | jq -r '.qrc20Balances[] | select(.symbol == "LOC") | {balance}' | grep -Po "\\d+" | bc)
 	balanceLOC=$(($balanceLR/100000000))
 	usdHYDRA="$(echo "$usdH*$balanceHYD" | bc)"
 	usdLoc="$(echo "$usdL*$balanceLOC" | bc)"
